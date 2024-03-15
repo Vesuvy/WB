@@ -55,8 +55,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\AdminProductEditVM.cs" />
+    <Compile Include="ViewModel\AdminStatisticsEmployeeVM.cs" />
+    <Compile Include="ViewModel\AdminStatisticsPvzVM.cs" />
+    <Compile Include="ViewModel\AuthorizationVM.cs" />
+    <Compile Include="ViewModel\EmployeeProductEditVM.cs" />
+    <Compile Include="ViewModel\EmployeeStatisticsPvzVM.cs" />
+    <Compile Include="ViewModel\ProductListVM.cs" />
+    <Compile Include="ViewModel\UserOrdersVM.cs" />
+    <Compile Include="Views\AdminProductEditUC.xaml.cs">
+      <DependentUpon>AdminProductEditUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminStatisticsEmployeesUC.xaml.cs">
+      <DependentUpon>AdminStatisticsEmployeesUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminStatisticsPvzUC.xaml.cs">
+      <DependentUpon>AdminStatisticsPvzUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AuthorizationUC.xaml.cs">
       <DependentUpon>AuthorizationUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EmployeeProductEditUC.xaml.cs">
+      <DependentUpon>EmployeeProductEditUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EmployeeStatisticsPvzUC.xaml.cs">
       <DependentUpon>EmployeeStatisticsPvzUC.xaml</DependentUpon>
@@ -79,7 +99,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AdminProductEditUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminStatisticsEmployeesUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminStatisticsPvzUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AuthorizationUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmployeeProductEditUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -130,5 +166,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

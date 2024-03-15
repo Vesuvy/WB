@@ -14,13 +14,9 @@
 
         <!-- Панель со статистикой -->
         <StackPanel Grid.Row="1" Margin="5" Background="#301330">
-            <!-- Отображаемый пункт выдачи -->
-            <TextBlock Text="{Binding PickupPoint}" FontWeight="Bold" Margin="5"/>
 
-            <!-- Название, количество проданных товаров и сумма продаж -->
-            <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="5"/>
+            <!-- количество проданных товаров и сумма продаж -->
             <TextBlock Text="{Binding SoldQuantity}" Margin="5"/>
-            <TextBlock Text="{Binding TotalAmount}" Margin="5"/>
         </StackPanel>
 
         <!-- Кнопка для возврата к списку товаров -->

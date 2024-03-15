@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="WB.Views.ProductListUC"
+﻿<UserControl x:Class="WB.Views.AdminStatisticsPvzUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -21,8 +21,8 @@
         <!-- Поле поиска -->
         <TextBox Text="{Binding SearchText}" Grid.Row="0" Margin="10" Padding="5" HorizontalAlignment="Right" Width="150" FontSize="20"/>
 
-        <!-- Панель со списком товаров -->
-        <ListBox ItemsSource="{Binding Products}" Grid.Row="1" Margin="10 0 10 5" Background="#301330">
+        <!-- Панель с ПВЗ -->
+        <ListBox ItemsSource="{Binding PickupPoints}" Grid.Row="1" Margin="10 0 10 5" Background="#301330">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -31,29 +31,26 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Фото товара -->
-                        <!-- <Image Source="{Binding ImagePath}" Width="50" Height="50" Margin="5"/> -->
+                        <!-- Название ПВЗ -->
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5"/>
+                        <!-- Адрес ПВЗ -->
+                        <TextBlock Text="{Binding Address}" FontWeight="Bold" Margin="5"/>
 
-                        <StackPanel Grid.Column="1" Orientation="Vertical">
-                            <!-- Название товара -->
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5"/>
-
-                            <!-- Цена товара -->
-                            <TextBlock Text="{Binding Price}" Margin="5"/>
+                        <!-- Рейтинг, количество проданных товаров, сумма всех проданных товаров -->
+                        <StackPanel Grid.Column="1" Orientation="Vertical" Margin="10 0 0 0">
+                            <TextBlock Text="{Binding Rating}" Margin="0 5"/>
+                            <TextBlock Text="{Binding SoldQuantity}" Margin="0 5"/>
+                            <TextBlock Text="{Binding TotalSales}" Margin="0 5"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <!-- ScrollBar -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
-
-        <!-- Кнопки для статистики, заказов клиентов и изменения продуктов -->
-        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10 0 20 20">
-            <Button Content="Статистика" Command="{Binding StatisticsCommand}" Margin="0 0 0 5"/>
-            <Button Content="Заказы клиентов" Command="{Binding CustomerOrdersCommand}" Margin="0 0 0 5"/>
-            <Button Content="Изменение продуктов" Command="{Binding EditProductsCommand}" Margin="0"/>
+            <!-- Кнопки для статистики о сотрудниках и возврата к списку товаров -->
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 20 20">
+            <Button Content="Статистика сотрудников" Command="{Binding EmployeeStatisticsCommand}" Margin="5"/>
+            <Button Content="Назад" Command="{Binding BackToListCommand}" Margin="5"/>
         </StackPanel>
     </Grid>
 </UserControl>

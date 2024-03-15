@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="WB.Views.AdminProductEditUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WB.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="#333333">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Кнопки сортировки и фильтрации -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
+            <Button Content="Сортировка" Command="{Binding SortCommand}" FontSize="20" Margin="0 0 10 0" Padding="5"/>
+            <Button Content="Фильтр" Command="{Binding FilterCommand}" FontSize="20" Padding="5"/>
+        </StackPanel>
+
+        <!-- Поле поиска -->
+        <TextBox Text="{Binding SearchText}" Grid.Row="0" Margin="10" Padding="5" HorizontalAlignment="Right" Width="150" FontSize="20"/>
+
+        <!-- Панель со списком товаров -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+            <ListBox ItemsSource="{Binding Products}" Margin="10 0 10 5" Background="#301330">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Фото продукта -->
+                            <!-- <Image Source="{Binding ImagePath}" Width="50" Height="50" Margin="5"/>  -->
+
+                            <!-- Название продукта -->
+                            <TextBlock Text="{Binding Name}" Grid.Column="1" FontWeight="Bold" Margin="5"/>
+
+                            <!-- Дата последнего заказа -->
+                            <TextBlock Text="{Binding LastOrderDate}" Grid.Column="2" Margin="5"/>
+
+                            <!-- Количество продукта -->
+                            <TextBlock Text="{Binding Quantity}" Grid.Column="3" Margin="5"/>
+
+                            <!-- Цена продукта -->
+                            <TextBlock Text="{Binding Price}" Grid.Column="4" Margin="5"/>
+
+                            <!-- Кнопки удаления и изменения товара -->
+                            <StackPanel Grid.Column="5" Orientation="Horizontal">
+                                <Button Content="Удалить" Command="{Binding DeleteProductCommand}" Margin="5"/>
+                                <Button Content="Изменить" Command="{Binding EditProductCommand}" Margin="5"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+        <!-- Кнопки для добавления товара и перехода обратно к списку товаров -->
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 20 20" Grid.Row="1">
+            <Button Content="Добавить товар" Command="{Binding AddProductCommand}" Margin="0 0 0 5"/>
+            <Button Content="Список товаров" Command="{Binding BackToListCommand}" Margin="0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
