@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows;
 using WB.Models.Database;
 using WB.Views;
+using WB.Utilities;
+using WB.ViewModel;
+using WB.Views;
+using System.Windows.Input;
 
 namespace WB.ViewModel
 {
-    internal class AuthorizationVM : INotifyPropertyChanged
+    internal class AuthorizationVM : ViewModelBase
     {
         public Employees _employees;
         public string Login
@@ -28,13 +30,30 @@ namespace WB.ViewModel
                 OnPropertyChanged(nameof(Password));
             }
         }
-        public void Authorizationction(object parameter)
+
+
+        //public ICommand AuthorizationCommand { get; set; }
+
+        //public AuthorizationVM()
+        //{
+        //    AuthorizationCommand = new RelayCommand(EnterButtonClicked);
+        //}
+
+        //private void EnterButtonClicked(object obj)
+        //{
+        //    ((NavigationVM)Application.Current.MainWindow.DataContext).CurrentView = new ProductListUC();
+        //}
+
+
+        public void Authorizationction(object parameter) // возможно придется изменить переходы на страницы
         {
             // Логика авторизации
             if (Login == "admin" && Password == "admin123")
             {
                 MessageBox.Show("Вы вошли как администратор.");
+                
                 var mainWindow = new MainWindow();
+                mainWindow.DataContext = new NavigationVM(); // Устанавливаем DataContext в NavigationVM
                 var productList = new ProductListUC();
                 mainWindow.Content = productList;
                 mainWindow.Show();
@@ -54,11 +73,11 @@ namespace WB.ViewModel
         }
 
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        //public event PropertyChangedEventHandler PropertyChanged;
+        //protected virtual void OnPropertyChanged(string propertyName)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        //}
 
         protected virtual void Dispose() { }
     }

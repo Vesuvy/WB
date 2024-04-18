@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WB.Views"
+             xmlns:vm="clr-namespace:WB.ViewModel"
+             xmlns:Menu="clr-namespace:WB.Utilities"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     
+   
+    <UserControl.DataContext>
+        <vm:NavigationVM/>
+    </UserControl.DataContext>
     <Grid Background="#333333" >
         <Border Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="700" MinHeight="350" Background="#301330" >
             <StackPanel VerticalAlignment="Center">
@@ -18,7 +24,9 @@
                 <Label Content="Пароль" FontSize="20" FontWeight="Bold" MaxWidth="400" Foreground="#d6b6d6" />
                 <TextBox x:Name="passText" Margin="0 0 0 20" Height="30" MaxWidth="400" Background="#d6b6d6" />
 
-                <Button x:Name="enterButton" Content="Вход" FontSize="20" FontWeight="Medium"  MinHeight="40" MaxWidth="150" Background="#d6b6d6" />
+                <Button x:Name="enterButton" 
+                        Command="{Binding AuthorizationCommand}"
+                        Content="Вход" FontSize="20" FontWeight="Medium"  MinHeight="40" MaxWidth="150" Background="#d6b6d6" />
                 
             </StackPanel>
         </Border>
