@@ -4,14 +4,13 @@ using WB.Models.Database;
 using WB.Views;
 using WB.Utilities;
 using WB.ViewModel;
-using WB.Views;
 using System.Windows.Input;
 
 namespace WB.ViewModel
 {
     internal class AuthorizationVM : ViewModelBase
     {
-        public Employees _employees;
+        public Employees _employees = new Employees();
         public string Login
         {
             get { return _employees.Login; }
@@ -31,13 +30,12 @@ namespace WB.ViewModel
             }
         }
 
+        public ICommand AuthorizationCommand { get; set; }
 
-        //public ICommand AuthorizationCommand { get; set; }
-
-        //public AuthorizationVM()
-        //{
-        //    AuthorizationCommand = new RelayCommand(EnterButtonClicked);
-        //}
+        public AuthorizationVM()
+        {
+            AuthorizationCommand = new RelayCommand(_ =>  AuthFunction());
+        }
 
         //private void EnterButtonClicked(object obj)
         //{
@@ -45,26 +43,22 @@ namespace WB.ViewModel
         //}
 
 
-        public void Authorizationction(object parameter) // возможно придется изменить переходы на страницы
+        public void AuthFunction() // возможно придется изменить переходы на страницы
         {
             // Логика авторизации
             if (Login == "admin" && Password == "admin123")
-            {
+            {   
                 MessageBox.Show("Вы вошли как администратор.");
                 
                 var mainWindow = new MainWindow();
-                mainWindow.DataContext = new NavigationVM(); // Устанавливаем DataContext в NavigationVM
-                var productList = new ProductListUC();
-                mainWindow.Content = productList;
-                mainWindow.Show();
+                NavigationVM navigationVM = new NavigationVM();
+                navigationVM.CurrentView = new ProductListVM();
             }
             else if (Login == "user" && Password == "user123")
             {
                 MessageBox.Show("Вы вошли как пользователь.");
+
                 var mainWindow = new MainWindow();
-                var productList = new ProductListUC();
-                mainWindow.Content = productList;
-                mainWindow.Show();
             }
             else
             {

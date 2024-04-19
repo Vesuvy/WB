@@ -11,4 +11,29 @@
         <view:ProductListUC/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:AdminProductEditVM}">
+        <view:AdminProductEditUC/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:AdminStatisticsEmployeeVM}">
+        <view:AdminStatisticsEmployeesUC/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:AdminStatisticsPvzVM}">
+        <view:AdminStatisticsPvzUC/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:EmployeeProductEditVM}">
+        <view:EmployeeProductEditUC/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:EmployeeStatisticsPvzVM}">
+        <view:EmployeeStatisticsPvzUC/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:UserOrdersVM}">
+        <view:UserOrdersUC/>
+    </DataTemplate>
+
+
 </ResourceDictionary>

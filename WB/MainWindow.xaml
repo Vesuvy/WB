@@ -12,12 +12,10 @@
     <Window.DataContext>
         <vm:NavigationVM/>
     </Window.DataContext>
-    <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:AuthorizationVM}">
-            <view:AuthorizationUC/>
-        </DataTemplate>
-    </Window.Resources>
+    
     <Grid>
-        <ContentControl Content="{Binding CurrentView}" />
+        <ContentControl Content="{Binding CurrentView}">
+            <Menu:DataTemplate/>
+        </ContentControl>
     </Grid>
 </Window>
