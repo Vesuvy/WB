@@ -16,8 +16,6 @@ namespace WB.Utilities
 
         public override void Execute(object parameter)
         {
-            
-
             _viewModelStore.CurrentViewModel = _createViewModel();
         }
 

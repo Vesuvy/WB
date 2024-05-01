@@ -11,6 +11,7 @@ namespace WB.Models.Database
         public decimal Price { get; set; }
         public decimal Rating { get; set; }
         public int Quantity { get; set; }
+        public byte[] Image { get; set; }
         public bool SortAsc { get; set; } = true;
         public IList<Sellers> SellersList { get; set; } = new List<Sellers>();
         public IList<Products> ProductList { get; set; } = new List<Products>();

@@ -10,24 +10,24 @@ namespace WB
     /// </summary>
     public partial class App : Application
     {
-        private ViewModelStore _viewModelStore;
-        private DataWork _dataWork;
-        public App()
-        {
-            _viewModelStore = new ViewModelStore()
-            { CurrentViewModel = new AuthorizationVM(_viewModelStore, _dataWork) };
+        //private ViewModelStore _viewModelStore;
+        //private DataWork _dataWork;
+        //public App()
+        //{
+        //    _viewModelStore = new ViewModelStore()
+        //    { CurrentViewModel = new AuthorizationVM(_viewModelStore, _dataWork) };
 
-            _dataWork = new DataWork();
-        }
+        //    _dataWork = new DataWork();
+        //}
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainWindowVM(_viewModelStore, _dataWork)
-            };
-            MainWindow.Show();
-            base.OnStartup(e);
-        }
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    MainWindow = new MainWindow()
+        //    {
+        //        DataContext = new MainWindowVM(_viewModelStore, _dataWork)
+        //    };
+        //    MainWindow.Show();
+        //    base.OnStartup(e);
+        //}
     }
 }

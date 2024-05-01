@@ -9,7 +9,7 @@ namespace WB.Models.Database
         public string Login { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public decimal Salary { get; set; }
-        public string Position { get; set; }
         public PickupPoints FK_PickupPoint { get; set; }
+        public bool isAdmin { get; set; }
     }
 }

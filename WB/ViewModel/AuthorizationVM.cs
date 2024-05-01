@@ -5,16 +5,21 @@ using WB.Views;
 using WB.Utilities;
 using WB.ViewModel;
 using System.Windows.Input;
-using System.Collections.Generic;
-using GalaSoft.MvvmLight.Command;
+using System.Data.SqlClient;
+using System.Data;
+using WB.DB;
 
 namespace WB.ViewModel
 {
     internal class AuthorizationVM : ViewModelBase
     {
-        #region ModelDefinitions
+        DataBase dataBase = new DataBase();
         readonly ViewModelStore _navigationVM;
-        readonly Employees _employees = new Employees();
+        private ViewModelStore _viewModelStore;
+
+        #region ModelDefinitions
+
+        private Employees _employees = new Employees();
         public string Login
         {
             get { return _employees.Login; }
@@ -33,12 +38,24 @@ namespace WB.ViewModel
                 OnPropertyChanged(nameof(Password));
             }
         }
+        public bool IsAdmin
+        {
+            get { return _employees.isAdmin; }
+            set
+            {
+                _employees.isAdmin = value;
+                OnPropertyChanged(nameof(IsAdmin));
+            }
+        }
+
         #endregion
 
         #region Commands
-        public ICommand EnterCommand { get; }
-        #endregion
 
+        public RelayCommand EnterCommand { get; }
+        public NavigateCommand GoToProductListCommand;
+
+        #endregion
 
         public AuthorizationVM(ViewModelStore viewModelStore)
         {
@@ -46,49 +63,62 @@ namespace WB.ViewModel
             EnterCommand = new RelayCommand(AuthFunction);
         }
 
-        public void AuthFunction() // возможно придется изменить переходы на страницы
+        public string Status => IsAdmin ? "Admin" : "Employ";
+        public void AuthFunction(object parameter)
         {
-            if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password))
+            if (CheckLogin(Login, Password, out bool isAdmin) && ValidateLoginForm(Login, Password))
             {
-                MessageBox.Show("Заполните данные!");
-                return;
-            }
+                IsAdmin = isAdmin;
 
-            if (CheckLoginAndPassword(Login, Password))
-            {
-                _navigationVM.CurrentViewModel = new ProductListVM(_navigationVM);
+                //GoToProductListCommand = new NavigateCommand(_viewModelStore,() => { return new ProductListVM(_viewModelStore, _employees); });
+
+                _navigationVM.CurrentViewModel = new ProductListVM(_navigationVM, _employees);
             }
             else
                 MessageBox.Show("Неверные логин или пароль.");
         }
-        public bool CheckLoginAndPassword(string login, string password)
+        public bool ValidateLoginForm(string login, string password)
         {
-            // пока для примера
-            var users = new Dictionary<string, string>
+            if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password))
             {
-                { "user", "userpas" },
-                { "admin", "adminpas" }
-            };
-
-            if (users.ContainsKey(login))
-            {
-                if (users[login] == password && login == "admin")
-                {
-                    MessageBox.Show("Вы вошли как администратор.");
-                    return true;
-                }
-                else if (users[login] == password)
-                {
-                    MessageBox.Show("Вы вошли как пользователь.");
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show("Неверные логин или пароль.");
-                    return false;
-                }
+                MessageBox.Show("Заполните данные!");
+                return false;
             }
+            else if (Login.Length <= 3 || Password.Length <= 3)
+            {
+                MessageBox.Show("Логин и Пароль должны быть не менее 4 символов!");
+                return false;
+            }
+            return true;
+        }
+        public bool CheckLogin(string login, string password, out bool isAdmin)
+        {
+            var loginUser = login;
+            var passwordUser = password;
 
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            DataTable table = new DataTable();
+
+            string queryString =
+                "select Id_Employee, Name, Login, Password, Salary, FK_PickupPoint, isAdmin from Employees where Login = @login and Password = @password";
+
+            SqlCommand command = new SqlCommand(queryString, dataBase.getConnection());
+            command.Parameters.AddWithValue("@login", loginUser);
+            command.Parameters.AddWithValue("@password", passwordUser);
+
+            adapter.SelectCommand = command;
+            adapter.Fill(table);
+
+            if (table.Rows.Count == 1)
+            {
+                // var user = new (table.Rows[0].ItemArray[2].ToString(), Convert.ToBoolean(table.Rows[0].ItemArray[6]));
+
+                isAdmin = Convert.ToBoolean(table.Rows[0].ItemArray[6]);
+                var userLoginForShow = table.Rows[0].ItemArray[2].ToString();
+                MessageBox.Show($"Вы успешно вошли!\nВаш логин: {userLoginForShow}", "Успешно!", MessageBoxButton.OK, MessageBoxImage.Information);
+                return true;
+            }
+            isAdmin = false;
             return false;
         }
 
