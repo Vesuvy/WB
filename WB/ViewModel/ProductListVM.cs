@@ -1,19 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿  using Microsoft.Data.SqlClient;
+using System;
 using System.Windows.Input;
 using WB.Models.Database;
-using WB.Views;
+using WB.Utilities;
+
 
 namespace WB.ViewModel
 {
-    internal class ProductListVM : INotifyPropertyChanged
+    public enum UserRole // Роли пользователей
     {
+        Admin,
+        Employ
+    }
+
+    internal class ProductListVM : ViewModelBase
+    {
+        private readonly string _connectionString = 
+            @"Data Source=localhost;Initial Catalog=Store;Integrated Security=True";
+        private readonly SqlConnection _connection;
+
+        private UserRole _userRole;
         public Products _products;
+        public UserRole UserRole
+        {
+            get { return _userRole; }
+            set
+            {
+                _userRole = value;
+                OnPropertyChanged(nameof(UserRole));
+            }
+        }
 
         public string Name
         {
@@ -33,21 +49,13 @@ namespace WB.ViewModel
                 OnPropertyChanged(nameof(Price));
             }
         }
-
         public ICommand SortCommand { get; }
         public ICommand FilterCommand { get; }
         public ICommand BackToListCommand { get; }
 
-        public ProductListVM()
+        public ProductListVM(ViewModelStore viewModelStore)
         {
 
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         protected virtual void Dispose() { }

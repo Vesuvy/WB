@@ -11,8 +11,12 @@ namespace WB
     {
         public MainWindow()
         {
-            InitializeComponent();
-            DataContext = new NavigationVM(); // Устанавливаем DataContext в NavigationVM
+            InitializeComponent();            
+
+            ViewModelStore viewModelStore = new ViewModelStore();
+            MainWindowVM mainWindowVM = new MainWindowVM(viewModelStore);
+            DataContext = mainWindowVM;
+            viewModelStore.CurrentViewModel = new AuthorizationVM(viewModelStore);
         }
     }
 }

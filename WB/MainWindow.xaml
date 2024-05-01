@@ -9,13 +9,42 @@
         xmlns:Menu="clr-namespace:WB.Utilities"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Window.DataContext>
-        <vm:NavigationVM/>
-    </Window.DataContext>
-    
-    <Grid>
-        <ContentControl Content="{Binding CurrentView}">
-            <Menu:DataTemplate/>
-        </ContentControl>
-    </Grid>
+
+    <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+
+            <DataTemplate DataType="{x:Type vm:AuthorizationVM}">
+                <view:AuthorizationUC/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:ProductListVM}">
+                <view:ProductListUC/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:AdminProductEditVM}">
+                <view:AdminProductEditUC/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:AdminStatisticsEmployeeVM}">
+                <view:AdminStatisticsEmployeesUC/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:AdminStatisticsPvzVM}">
+                <view:AdminStatisticsPvzUC/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:EmployeeProductEditVM}">
+                <view:EmployeeProductEditUC/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:EmployeeStatisticsPvzVM}">
+                <view:EmployeeStatisticsPvzUC/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vm:UserOrdersVM}">
+                <view:UserOrdersUC/>
+            </DataTemplate>
+
+        </ContentControl.Resources>
+    </ContentControl>
 </Window>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace WB.Models.Database
 {
@@ -9,5 +11,9 @@ namespace WB.Models.Database
         public decimal Price { get; set; }
         public decimal Rating { get; set; }
         public int Quantity { get; set; }
+        public bool SortAsc { get; set; } = true;
+        public IList<Sellers> SellersList { get; set; } = new List<Sellers>();
+        public IList<Products> ProductList { get; set; } = new List<Products>();
+        
     }
 }

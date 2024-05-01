@@ -5,12 +5,16 @@ using WB.Views;
 using WB.Utilities;
 using WB.ViewModel;
 using System.Windows.Input;
+using System.Collections.Generic;
+using GalaSoft.MvvmLight.Command;
 
 namespace WB.ViewModel
 {
     internal class AuthorizationVM : ViewModelBase
     {
-        public Employees _employees = new Employees();
+        #region ModelDefinitions
+        readonly ViewModelStore _navigationVM;
+        readonly Employees _employees = new Employees();
         public string Login
         {
             get { return _employees.Login; }
@@ -29,49 +33,65 @@ namespace WB.ViewModel
                 OnPropertyChanged(nameof(Password));
             }
         }
+        #endregion
 
-        public ICommand AuthorizationCommand { get; set; }
+        #region Commands
+        public ICommand EnterCommand { get; }
+        #endregion
 
-        public AuthorizationVM()
+
+        public AuthorizationVM(ViewModelStore viewModelStore)
         {
-            AuthorizationCommand = new RelayCommand(_ =>  AuthFunction());
+            _navigationVM = viewModelStore;
+            EnterCommand = new RelayCommand(AuthFunction);
         }
-
-        //private void EnterButtonClicked(object obj)
-        //{
-        //    ((NavigationVM)Application.Current.MainWindow.DataContext).CurrentView = new ProductListUC();
-        //}
-
 
         public void AuthFunction() // возможно придется изменить переходы на страницы
         {
-            // Логика авторизации
-            if (Login == "admin" && Password == "admin123")
-            {   
-                MessageBox.Show("Вы вошли как администратор.");
-                
-                var mainWindow = new MainWindow();
-                NavigationVM navigationVM = new NavigationVM();
-                navigationVM.CurrentView = new ProductListVM();
-            }
-            else if (Login == "user" && Password == "user123")
+            if (string.IsNullOrEmpty(Login) || string.IsNullOrEmpty(Password))
             {
-                MessageBox.Show("Вы вошли как пользователь.");
+                MessageBox.Show("Заполните данные!");
+                return;
+            }
 
-                var mainWindow = new MainWindow();
+            if (CheckLoginAndPassword(Login, Password))
+            {
+                _navigationVM.CurrentViewModel = new ProductListVM(_navigationVM);
             }
             else
-            {
                 MessageBox.Show("Неверные логин или пароль.");
+        }
+        public bool CheckLoginAndPassword(string login, string password)
+        {
+            // пока для примера
+            var users = new Dictionary<string, string>
+            {
+                { "user", "userpas" },
+                { "admin", "adminpas" }
+            };
+
+            if (users.ContainsKey(login))
+            {
+                if (users[login] == password && login == "admin")
+                {
+                    MessageBox.Show("Вы вошли как администратор.");
+                    return true;
+                }
+                else if (users[login] == password)
+                {
+                    MessageBox.Show("Вы вошли как пользователь.");
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("Неверные логин или пароль.");
+                    return false;
+                }
             }
+
+            return false;
         }
 
-
-        //public event PropertyChangedEventHandler PropertyChanged;
-        //protected virtual void OnPropertyChanged(string propertyName)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        //}
 
         protected virtual void Dispose() { }
     }

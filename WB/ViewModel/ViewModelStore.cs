@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WB.Views;
 using System.Windows.Input;
 using System.ComponentModel;
@@ -12,19 +8,26 @@ using WB.ViewModel;
 
 namespace WB.ViewModel
 {
-    internal class NavigationVM : ViewModelBase
+    internal class ViewModelStore
     {
-        private object _currentView;
-        public object CurrentView
+        ViewModelBase _currentViewModel;
+        public ViewModelBase CurrentViewModel
         {
-            get { return _currentView; }
+            get { return _currentViewModel; }
             set
             {
-                _currentView = value; 
-                OnPropertyChanged();
+                _currentViewModel = value;
+                OnCurrentViewModelChanged();
             }
         }
-        public ICommand AdminProductEditCommand { get; set; }
+
+        public event Action CurrentViewModelChanged;
+        private void OnCurrentViewModelChanged()
+        {
+            CurrentViewModelChanged?.Invoke();
+        }
+
+        /*public ICommand AdminProductEditCommand { get; set; }
         public ICommand AdminStatisticsEmployeeCommand { get; set; }
         public ICommand AdminStatisticsPvzCommand { get; set; }
         public ICommand AuthorizationCommand { get; set; }
@@ -42,7 +45,7 @@ namespace WB.ViewModel
         private void ProductList(object obj) => CurrentView = new ProductListVM();
         private void UserOrders(object obj) => CurrentView = new UserOrdersVM();
 
-        public NavigationVM()
+        public ViewModelStore()
         {
             AdminProductEditCommand = new RelayCommand(AdminProductEdit);
             AdminStatisticsEmployeeCommand = new RelayCommand(AdminStatisticsEmployee);
@@ -54,8 +57,8 @@ namespace WB.ViewModel
             UserOrdersCommand = new RelayCommand(UserOrders);
 
             //start usercontrol
-            CurrentView = new AuthorizationVM();
-        }
+            CurrentView = new AuthorizationUC();
+        }*/
 
     }
 }
