@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Data.SqlClient;
 using System.Data;
 using WB.DB;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WB.ViewModel
 {
@@ -70,7 +71,7 @@ namespace WB.ViewModel
             {
                 IsAdmin = isAdmin;
 
-                //GoToProductListCommand = new NavigateCommand(_viewModelStore,() => { return new ProductListVM(_viewModelStore, _employees); });
+                // GoToProductListCommand = new NavigateCommand(_viewModelStore,() => { return new ProductListVM(_viewModelStore, _employees); });
 
                 _navigationVM.CurrentViewModel = new ProductListVM(_navigationVM, _employees);
             }
@@ -124,6 +125,7 @@ namespace WB.ViewModel
 
 
         protected virtual void Dispose() { }
+
     }
 
 }

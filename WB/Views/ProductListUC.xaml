@@ -25,7 +25,7 @@
         <TextBox Text="{Binding SearchText}" Grid.Row="0" Margin="10" Padding="5" HorizontalAlignment="Right" Width="150" FontSize="20"/>
 
         <!-- Панель со списком товаров -->
-        <ListBox ItemsSource="{Binding Products}" Grid.Row="1" Margin="10 0 10 5" Background="#301330">
+        <ListBox ItemsSource="{Binding Products}" Grid.Row="1" Margin="10 0 10 5" Background="#fff">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -35,11 +35,11 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- Фото товара -->
-                        <Image Source="{Binding }" Width="50" Height="50" Margin="5"/>
+                        <Image Source="{Binding ImageSource}" Width="50" Height="50" Margin="5"/>
 
                         <StackPanel Grid.Column="1" Orientation="Vertical">
                             <!-- Название товара -->
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5"/>
+                            <TextBlock Text="{Binding Title}" FontWeight="Bold" Margin="5"/>
 
                             <!-- Цена товара -->
                             <TextBlock Text="{Binding Price}" Margin="5"/>
@@ -54,9 +54,9 @@
 
         <!-- Кнопки для статистики, заказов клиентов и изменения продуктов -->
         <StackPanel Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10 0 20 20">
-            <Button Content="Статистика" Command="{Binding StatisticsCommand}" Margin="0 0 0 5"/>
-            <Button Content="Заказы клиентов" Command="{Binding CustomerOrdersCommand}" Margin="0 0 0 5"/>
-            <Button Content="Изменение продуктов" Command="{Binding EditProductsCommand}" Margin="0"/>
+            <Button Content="Статистика" Command="{Binding GoToStatisticsCommand}" Margin="0 0 0 5"/>
+            <Button Content="Заказы клиентов" Command="{Binding GoToCustomerOrdersCommand}" Margin="0 0 0 5"/>
+            <Button Content="Изменение продуктов" Command="{Binding GoToEditProductsCommand}" Margin="0"/>
         </StackPanel>
     </Grid>
 </UserControl>

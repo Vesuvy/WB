@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace WB.Models.Database
 {
@@ -15,6 +15,20 @@ namespace WB.Models.Database
         public bool SortAsc { get; set; } = true;
         public IList<Sellers> SellersList { get; set; } = new List<Sellers>();
         public IList<Products> ProductList { get; set; } = new List<Products>();
-        
+
+        /*public BitmapImage ImageSource
+        {
+            get
+            {
+                using (MemoryStream stream = new MemoryStream(Image))
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = stream;
+                    bitmap.EndInit();
+                    return bitmap;
+                }
+            }
+        }*/
     }
 }

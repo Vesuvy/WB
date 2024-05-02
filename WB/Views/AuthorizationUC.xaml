@@ -12,8 +12,9 @@
     <!--<UserControl.DataContext>
         <vm:AuthorizationVM/>
     </UserControl.DataContext>-->
-    <Grid Background="#333333" >
-        
+
+    <Grid Background="#333333">
+
         <Border Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="700" MinHeight="350" Background="#301330" >
             <StackPanel VerticalAlignment="Center">
                 <Label Content="Авторизация" FontSize="25"  FontWeight="Bold" 

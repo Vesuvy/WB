@@ -6,18 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using WB.Models.Database;
+using WB.Utilities;
 
 namespace WB.ViewModel
 {
-    internal class EmployeeStatisticsPvzVM : INotifyPropertyChanged
+    internal class EmployeeStatisticsPvzVM : ViewModelBase
     {
         public PickupPoints _pickupPoints;
 
         
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
+        public EmployeeStatisticsPvzVM(ViewModelStore viewModelStore, Employees employees)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         }
 
         protected virtual void Dispose() { }

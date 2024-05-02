@@ -6,15 +6,10 @@ using System.Configuration;
 using System.Collections.ObjectModel;
 using WB.DB;
 using System.Data.SqlClient;
+using WB.Views;
 
 namespace WB.ViewModel
 {
-    public enum UserRole // Роли пользователей
-    {
-        Admin,
-        Employ
-    }
-
     internal class ProductListVM : ViewModelBase
     {
         private readonly ViewModelStore _viewModelStore;
@@ -42,13 +37,13 @@ namespace WB.ViewModel
                 OnPropertyChanged(nameof(Employees));
             }
         }
-        /*public string Name
+        /*public string Title
         {
             get { return _products.Title; }
             set
             {
                 _products.Title = value;
-                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Title));
             }
         }
         public decimal Price
@@ -65,19 +60,27 @@ namespace WB.ViewModel
 
         #region Commands
 
-        public ICommand SortCommand { get; }
-        public ICommand FilterCommand { get; }
-        public ICommand BackToListCommand { get; }
+        public ICommand SortCommand { get; private set; }
+        public ICommand FilterCommand { get; private set; }
+        public ICommand GoToStatisticsCommand { get; private set; }
+        public ICommand GoToCustomerOrdersCommand { get; private set; }
+        public ICommand GoToEditProductsCommand { get; private set; }
 
         #endregion
-
 
         public ProductListVM(ViewModelStore viewModelStore, Employees employees)
         {
             _viewModelStore = viewModelStore;
             _employees = employees;
 
+            _products = new ObservableCollection<Products>();
+
             LoadProducts();
+
+            //Commands
+            GoToStatisticsCommand = new RelayCommand(GoToStatistics);
+            GoToCustomerOrdersCommand = new RelayCommand(GoToCustomerOrders);
+            GoToEditProductsCommand = new RelayCommand(GoToEditProducts);
         }
 
         private void LoadProducts()
@@ -86,7 +89,7 @@ namespace WB.ViewModel
             {
                 sqlConnection.Open();
 
-                string queryString = "select Id_Product, Title, Price, Rating, Image from Products";
+                string queryString = "select * from Products";
                 SqlCommand command = new SqlCommand(queryString, sqlConnection);
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -95,18 +98,46 @@ namespace WB.ViewModel
                     {
                         Products products = new Products
                         {
-                            Id = reader.GetInt32(0),
+                            //Id = reader.GetInt32(0),
                             Title = reader.GetString(1),
                             Price = reader.GetDecimal(2),
-
+                            //Image = (byte[])reader[4]
                         };
-                        //int id = reader.GetInt32(0);
-                        //string title = reader.GetString(1);
-                        //decimal price = reader.GetInt32(2);
-                        //byte[] image = (byte[])reader[3];
+
+                        Products.Add(products); // + товар в коллекцию
+
+
                     }
                 }
             }
+        }
+
+        private void GoToStatistics(object parameter)
+        {
+            if (IsAdmin())
+            {
+                _viewModelStore.CurrentViewModel = new AdminStatisticsPvzVM(_viewModelStore, _employees);
+            }
+            else
+            {
+                _viewModelStore.CurrentViewModel = new EmployeeStatisticsPvzVM(_viewModelStore, _employees);
+            }
+        }
+        private void GoToEditProducts(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void GoToCustomerOrders(object obj)
+        {
+            throw new NotImplementedException();
+        }
+        private bool IsAdmin()
+        {
+            if (_employees.isAdmin)
+                return true;
+            else 
+                return false;
         }
 
         protected virtual void Dispose() { }
