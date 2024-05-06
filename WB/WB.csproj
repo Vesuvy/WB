@@ -195,6 +195,7 @@
     </ApplicationDefinition>
     <Compile Include="DB\DataBase.cs" />
     <Compile Include="DB\DataWork.cs" />
+    <Compile Include="DB\IDataBase.cs" />
     <Compile Include="MainWindowVM.cs" />
     <Compile Include="Utilities\Btn.cs" />
     <Compile Include="Utilities\DefaultCommand.cs" />

@@ -8,15 +8,14 @@ using System.Windows.Input;
 using System.Data.SqlClient;
 using System.Data;
 using WB.DB;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace WB.ViewModel
 {
     internal class AuthorizationVM : ViewModelBase
     {
         DataBase dataBase = new DataBase();
-        readonly ViewModelStore _navigationVM;
-        private ViewModelStore _viewModelStore;
+        readonly ViewModelStore _viewModelStore;
+        //private ViewModelStore _viewModelStore;
 
         #region ModelDefinitions
 
@@ -41,10 +40,10 @@ namespace WB.ViewModel
         }
         public bool IsAdmin
         {
-            get { return _employees.isAdmin; }
+            get { return _employees.IsAdmin; }
             set
             {
-                _employees.isAdmin = value;
+                _employees.IsAdmin = value;
                 OnPropertyChanged(nameof(IsAdmin));
             }
         }
@@ -60,11 +59,11 @@ namespace WB.ViewModel
 
         public AuthorizationVM(ViewModelStore viewModelStore)
         {
-            _navigationVM = viewModelStore;
+            _viewModelStore = viewModelStore;
             EnterCommand = new RelayCommand(AuthFunction);
         }
 
-        public string Status => IsAdmin ? "Admin" : "Employ";
+        //public string Status => IsAdmin ? "Admin" : "Employ";
         public void AuthFunction(object parameter)
         {
             if (CheckLogin(Login, Password, out bool isAdmin) && ValidateLoginForm(Login, Password))
@@ -73,7 +72,7 @@ namespace WB.ViewModel
 
                 // GoToProductListCommand = new NavigateCommand(_viewModelStore,() => { return new ProductListVM(_viewModelStore, _employees); });
 
-                _navigationVM.CurrentViewModel = new ProductListVM(_navigationVM, _employees);
+                _viewModelStore.CurrentViewModel = new ProductListVM(_viewModelStore, _employees);
             }
             else
                 MessageBox.Show("Неверные логин или пароль.");

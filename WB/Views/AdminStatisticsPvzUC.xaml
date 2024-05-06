@@ -49,8 +49,8 @@
 
             <!-- Кнопки для статистики о сотрудниках и возврата к списку товаров -->
         <StackPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 20 20">
-            <Button Content="Статистика сотрудников" Command="{Binding EmployeeStatisticsCommand}" Margin="5"/>
-            <Button Content="Назад" Command="{Binding BackToListCommand}" Margin="5"/>
+            <Button Content="Статистика сотрудников" Command="{Binding GoToEmployeeStatisticsCommand}" Margin="5"/>
+            <Button Content="Назад" Command="{Binding GoToProductListCommand}" Margin="5"/>
         </StackPanel>
     </Grid>
 </UserControl>

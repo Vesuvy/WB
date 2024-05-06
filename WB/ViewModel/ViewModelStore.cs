@@ -27,6 +27,8 @@ namespace WB.ViewModel
             CurrentViewModelChanged?.Invoke();
         }
 
+
+        #region хз
         /*public ICommand AdminProductEditCommand { get; set; }
         public ICommand AdminStatisticsEmployeeCommand { get; set; }
         public ICommand AdminStatisticsPvzCommand { get; set; }
@@ -59,6 +61,7 @@ namespace WB.ViewModel
             //start usercontrol
             CurrentView = new AuthorizationUC();
         }*/
+        #endregion
 
     }
 }

@@ -4,13 +4,16 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using WB.Models.Database;
+using WB.Utilities;
 
 namespace WB.ViewModel
 {
-    internal class AdminStatisticsEmployeeVM : INotifyPropertyChanged
+    internal class AdminStatisticsEmployeeVM : ViewModelBase
     {
-        public Employees _employees;
+        private ViewModelStore _viewModelStore;
+        private Employees _employees;
 
         public string Name
         {
@@ -40,11 +43,19 @@ namespace WB.ViewModel
             }
         }
 
+        public ICommand GoToProductListCommand { get; private set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
+        public AdminStatisticsEmployeeVM(ViewModelStore viewModelStore, Employees employees)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            _viewModelStore = viewModelStore;
+            _employees = employees;
+
+            GoToProductListCommand = new RelayCommand(GoToProductList);
+        }
+
+        private void GoToProductList(object obj)
+        {
+            _viewModelStore.CurrentViewModel = new ProductListVM(_viewModelStore, _employees);
         }
 
         protected virtual void Dispose() { }

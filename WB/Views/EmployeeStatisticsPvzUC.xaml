@@ -21,7 +21,7 @@
 
         <!-- Кнопка для возврата к списку товаров -->
         <Button Content="Назад к товарам" 
-            Command="{Binding BackToListCommand}"
+            Command="{Binding GoToProductListCommand}"
             Grid.Row="1"
             HorizontalAlignment="Right" 
             Margin="10 0 20 20" Padding="5" VerticalAlignment="Bottom" FontSize="20"/>

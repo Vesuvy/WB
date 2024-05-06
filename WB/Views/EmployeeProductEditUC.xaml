@@ -52,7 +52,7 @@
         <!-- Кнопки для перехода к статистике для обычного сотрудника и списка товаров -->
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 20 20" Grid.Row="1">
             <Button Content="Статистика ПВЗ" Command="{Binding EmployeeStatisticsCommand}" Margin="0 0 0 5"/>
-            <Button Content="Список товаров" Command="{Binding BackToListCommand}" Margin="0"/>
+            <Button Content="Список товаров" Command="{Binding GoToProductListCommand}" Margin="0"/>
         </StackPanel>
     </Grid>
 </UserControl>

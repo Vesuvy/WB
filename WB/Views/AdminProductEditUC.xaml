@@ -23,7 +23,7 @@
 
         <!-- Панель со списком товаров -->
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
-            <ListBox ItemsSource="{Binding Products}" Margin="10 0 10 5" Background="#301330">
+            <ListBox ItemsSource="{Binding GoToProductListCommand}" Margin="10 0 10 5" Background="#301330">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0 5">
@@ -61,7 +61,7 @@
         <!-- Кнопки для добавления товара и перехода обратно к списку товаров -->
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 0 20 20" Grid.Row="1">
             <Button Content="Добавить товар" Command="{Binding AddProductCommand}" Margin="0 0 0 5"/>
-            <Button Content="Список товаров" Command="{Binding BackToListCommand}" Margin="0"/>
+            <Button Content="Список товаров" Command="{Binding GoToProductListCommand}" Margin="0"/>
         </StackPanel>
     </Grid>
 </UserControl>

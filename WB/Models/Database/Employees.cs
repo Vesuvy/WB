@@ -10,6 +10,6 @@ namespace WB.Models.Database
         public string Password { get; set; } = string.Empty;
         public decimal Salary { get; set; }
         public PickupPoints FK_PickupPoint { get; set; }
-        public bool isAdmin { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

@@ -17,12 +17,13 @@
 
         <!-- Кнопки сортировки и фильтрации -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
-            <Button Content="Сортировка" Command="{Binding SortCommand}" FontSize="20" Margin="0 0 10 0" Padding="5"/>
-            <Button Content="Фильтр" Command="{Binding FilterCommand}" FontSize="20" Padding="5"/>
+            <Button Content="Сортировка по цене" Command="{Binding MinToMaxPriceSortCommand}" FontSize="20" Margin="0 0 10 0" Padding="5"/>            
+            <Button Content="Фильтр по цене:" Command="{Binding FilterCommand}" FontSize="20" Padding="5"/>
+            <TextBox Text="{Binding FilterPrice, UpdateSourceTrigger=PropertyChanged}" Width="100" Margin="0 0 10 0" Padding="5"/>
         </StackPanel>
 
         <!-- Поле поиска -->
-        <TextBox Text="{Binding SearchText}" Grid.Row="0" Margin="10" Padding="5" HorizontalAlignment="Right" Width="150" FontSize="20"/>
+        <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="10" Padding="5" HorizontalAlignment="Right" Width="150" FontSize="20"/>
 
         <!-- Панель со списком товаров -->
         <ListBox ItemsSource="{Binding Products}" Grid.Row="1" Margin="10 0 10 5" Background="#fff">
